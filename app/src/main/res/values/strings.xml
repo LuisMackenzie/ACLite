@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ACLite</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="username_error">User must be a valid email</string>
+    <string name="password_error">Password must be at least 6 characters length</string>
+    <string name="login_in">Logged In</string>
+</resources>
