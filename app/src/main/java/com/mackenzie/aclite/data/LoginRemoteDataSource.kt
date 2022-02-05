@@ -1,18 +1,25 @@
 package com.mackenzie.aclite.data
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 class LoginRemoteDataSource {
 
-    public suspend fun tryLogin(user:String, pass:String):LoginResult {
-        delay(2000)
+    public suspend fun tryLogin(user:String, pass:String):LoginResult = withContext(Dispatchers.IO) {
+
+
+        // delay(2000)
+        // Aqui suspendemos el hilo principal
+        Thread.sleep(2000)
+
         // Primera forma de estructurar una validacion
         /*val userError = !user.contains('@')
         val passError = pass.length < 6
         return LoginResult(userError, passError)*/
 
         // Segunda forma de estructurar una validacion
-        return LoginResult(
+        LoginResult(
             userError = !user.contains('@'),
             passError = pass.length < 6
         )
