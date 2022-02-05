@@ -1,9 +1,10 @@
-package com.mackenzie.aclite
+package com.mackenzie.aclite.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mackenzie.aclite.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
