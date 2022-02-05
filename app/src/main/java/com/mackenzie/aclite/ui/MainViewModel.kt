@@ -5,10 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mackenzie.aclite.R
+import com.mackenzie.aclite.data.LoginRepository
+import com.mackenzie.aclite.domain.TryLoginUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MainViewModel: ViewModel() {
+class MainViewModel(
+    private val tryLoginUseCase: TryLoginUseCase = TryLoginUseCase()
+): ViewModel() {
 
     private val _state = MutableLiveData<UiState>(UiState())
     public val state:LiveData<UiState> get() = _state
@@ -16,23 +20,15 @@ class MainViewModel: ViewModel() {
     public fun onTryLogin(user:String, pass: String) {
         viewModelScope.launch {
             _state.value = UiState(loggingIn = true)
-            tryLogin(user, pass)
+            val result = tryLoginUseCase(user, pass)
+            _state.value = UiState(
+                userError = if (result.userError) R.string.username_error else null,
+                passError = if (result.passError) R.string.password_error else null,
+                loggedIn = result.success
+
+            )
 
         }
-    }
-
-    private suspend fun tryLogin(user:String, pass:String) {
-        delay(2000)
-        val userError = if (!user.contains('@')) R.string.username_error else null
-        val passError = if (pass.length < 6) R.string.password_error else null
-        val loggedIn = userError == null && passError == null
-        _state.value = UiState(
-            loggedIn = loggedIn,
-            userError = userError,
-            passError = passError
-        )
-
-
     }
 
     fun onNavigateToNextScreen() {
