@@ -4,14 +4,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
-class LoginRemoteDataSource {
+interface LoginRemoteDataSource {
 
-    public suspend fun tryLogin(user:String, pass:String):LoginResult = withContext(Dispatchers.IO) {
+    public suspend fun tryLogin(user:String, pass:String):LoginResult
+
+}
+
+class LoginRemoteDataSourceImpl: LoginRemoteDataSource {
+
+    public override suspend fun tryLogin(user:String, pass:String):LoginResult = withContext(Dispatchers.IO) {
 
 
-        // delay(2000)
+        delay(2000)
         // Aqui suspendemos el hilo principal
-        Thread.sleep(2000)
+        // Thread.sleep(2000)
 
         // Primera forma de estructurar una validacion
         /*val userError = !user.contains('@')

@@ -4,7 +4,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 class LoginRepository(
-    private val loginRemoteDataSource: LoginRemoteDataSource = LoginRemoteDataSource()
+    private val loginRemoteDataSource: LoginRemoteDataSource = LoginRemoteDataSourceImpl()
 ) {
 
     public suspend fun tryLogin(user:String, pass:String):LoginResult =
